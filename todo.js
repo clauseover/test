@@ -5,6 +5,7 @@ const firstCardBody = document.querySelectorAll(".card-body")[0];
 const SecondCardBody = document.querySelectorAll(".card-body")[1];
 const filter = document.querySelector("#filter");
 const clearButon = document.querySelector("#clear-todos");
+let loading = 0;
 eventListeners();
 
 function eventListeners() { // Tüm event listenerlar
@@ -13,6 +14,9 @@ function eventListeners() { // Tüm event listenerlar
     SecondCardBody.addEventListener("click", deleteTodo);
     filter.addEventListener("keyup", filterTodos);
     clearButon.addEventListener("click", clearAllTodos);
+    window.addEventListener('load', function () {
+        loading = 1;
+      })
 
 
 }
@@ -147,7 +151,7 @@ function addTodoToUI(newTodo) { // String değerini list item olara UI'a ekle
     ListItem.appendChild(link);
     todoList.appendChild(ListItem);
     todoInput.value = "";
-    showAlert("success", "Kayıt başarıyla eklendi.");
+    if (loading=== 1) {showAlert("success", "Kayıt başarıyla eklendi.");}
 }
 
 console.log();
