@@ -62,7 +62,7 @@ function deleteTodo(e) {
         if (confirm(`"${e.target.parentElement.parentElement.textContent}" isimli kaydı silmek istediğinize emin misiniz?`)) {
         e.target.parentElement.parentElement.remove();
         deleteTodoFromStorage(e.target.parentElement.parentElement.textContent);
-        showAlert("success", "Silme işlemi başarıyla gerçekleştirildi.")
+        showAlert("success", "Silme işlemi başarıyla gerçekleştirildi.");
     }}
 }
 
