@@ -14,30 +14,22 @@ function eventListeners() { // Tüm event listenerlar
     SecondCardBody.addEventListener("click", deleteTodo);
     filter.addEventListener("keyup", filterTodos);
     clearButon.addEventListener("click", clearAllTodos);
-    window.addEventListener('load', function () {
-        loading = 1;
-      })
+    window.addEventListener('load', function () {loading = 1;})
 
 
 }
 
 function clearAllTodos(e) {
 
-    if (confirm("Tümünü silmek istediğinize emin misiniz?")) {
+    if (confirm("Tümünü silmek istediğinizden emin misiniz?")) {
         // Arayüzden Todo'ları temizleme
         // todoList.innerHTML=""; // Yavaş yöntem
-
         while (todoList.firstElementChild != null) {
-            todoList.removeChild(todoList.firstChild);
-        }
+            todoList.removeChild(todoList.firstChild);}
         // let i; // for döngüsü ile silme 
         // for (i = todoList.childElementCount; i>0; i--){
-        //     todoList.removeChild(todoList.firstChild);
-        // }
-
+        //     todoList.removeChild(todoList.firstChild);}
         localStorage.removeItem("todos");
-
-
     }
 }
 
@@ -65,11 +57,13 @@ function loadAllTodosToUI() {
 }
 
 function deleteTodo(e) {
+    
     if (e.target.className === "fa fa-remove") {
+        if (confirm(`"${e.target.parentElement.parentElement.textContent}" isimli kaydı silmek istediğinize emin misiniz?`)) {
         e.target.parentElement.parentElement.remove();
         deleteTodoFromStorage(e.target.parentElement.parentElement.textContent);
         showAlert("success", "Silme işlemi başarıyla gerçekleştirildi.")
-    }
+    }}
 }
 
 function deleteTodoFromStorage(deletetodo) {
@@ -85,6 +79,7 @@ function deleteTodoFromStorage(deletetodo) {
 
 function addTodo(e) {
     const newTodo = todoInput.value.trim();
+    let kontrol;
     /*
     <div class="alert alert-danger d-inline" role="alert">
         Lütfen geçerli bir metin giriniz!
@@ -93,8 +88,18 @@ function addTodo(e) {
     if (newTodo === "") {
         showAlert("danger", "Lütgen bir metin giriniz!");
     } else {
-        addTodoToUI(newTodo);
-        addTodoToStorage(newTodo);
+        
+        todos = getTodosFromStorage();
+        kontrol = todos.indexOf((newTodo));
+        if (kontrol == -1) {
+            addTodoToUI(newTodo);
+            addTodoToStorage(newTodo);
+            
+
+        } else {
+            alert("Bu kayıt zaten mevcut");
+        }
+
     }
     e.preventDefault();
 }
@@ -151,7 +156,6 @@ function addTodoToUI(newTodo) { // String değerini list item olara UI'a ekle
     ListItem.appendChild(link);
     todoList.appendChild(ListItem);
     todoInput.value = "";
-    if (loading=== 1) {showAlert("success", "Kayıt başarıyla eklendi.");}
+    if (loading === 1) { showAlert("success", "Kayıt başarıyla eklendi."); }
 }
 
-console.log();
